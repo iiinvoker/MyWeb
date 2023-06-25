@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: order-hystrix
+
+server:
+  port: 80
+
+eureka:
+  client:
+    registerWithEureka: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/
+
+hystrix:
+  command.default.execution.isolation.thread.timeoutInMilliseconds: 5000
+
+feign:
+  client:
+    config:
+      # 提供方的服务名
+      product-service:
+        #请求日志级别
+        loggerLevel: BASIC
+        contract: feign.Contract.Default #设置为默认的契约（还原成原生注解）
+        # 连接超时时间，默认2s，设置单位为毫秒
+        connectTimeout: 2000
+        # 请求处理超时时间，默认5s，设置单位为毫秒。
+        readTimeout: 5000
+  hystrix:
+    enabled: true

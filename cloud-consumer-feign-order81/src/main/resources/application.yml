@@ -1,0 +1,17 @@
+server:
+  port: 81
+spring:
+  application:
+    name: cloud-consumer-payment
+eureka:
+  client:
+    register-with-eureka: true
+    fetchRegeistry: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/
+ribbon:
+  ReadTimeout: 5000
+  connectTimeout: 5000
+logging:
+  level:
+    com.ytx.springcloud.service.PaymentService: debug

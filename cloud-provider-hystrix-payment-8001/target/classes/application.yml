@@ -1,0 +1,33 @@
+server:
+  port: 8001
+
+spring:
+  application:
+    name: CLOUD-PROVIDER-HYSTRIX-PAYMENT
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
+
+# yml
+hystrix:
+  command:
+    default:  #default全局有效，service id指定应用有效
+      execution:
+        timeout:
+          enabled: true
+          # 如果enabled设置为false，则请求超时交给ribbon控制,此时@HystrixProperty(name = "execution.isolation
+          #.thread.timeoutInMilliseconds", value = "5000")不起效
+          # 如果enabled设置为true, 则hystrix也有对超时的控制权，@HystrixProperty(name = "execution.isolation
+          #.thread.timeoutInMilliseconds", value = "5000")起效果
+          # 且如果enabled设置为true，ribbon，hystrix都有对请求超时的控制权，且控制效果一样
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000
+
+feign:
+  hystrix:
+    enabled: true
